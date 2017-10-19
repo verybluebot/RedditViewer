@@ -45,9 +45,11 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.ViewHo
 
         holder.headerText.setText(subReddit.searchName);
 
-        if (subReddit.iconImage != null && subReddit.iconImage.length() > 0) {
+        String imageUrl = subReddit.iconImage.length() > 5 ? subReddit.iconImage : subReddit.headerImage;
+
+        if (subReddit.iconImage != null && imageUrl.length() > 0) {
             Picasso.with(context)
-                    .load(subReddit.iconImage)
+                    .load(imageUrl)
                     .fit()
                     .centerInside()
                     .into(holder.avatarImage);

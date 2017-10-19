@@ -20,6 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by shulg on 10/16/17.
@@ -73,8 +74,8 @@ public class RedditClient {
     }
 
     // http requests
-    public void reddits(final APIResponse<List<SubReddit>> apiResponse) {
-        _retrofit.create(Reddits.class).reddits().enqueue(new Callback<SubRedditResponse>() {
+    public void reddits(String searchTerm, final APIResponse<List<SubReddit>> apiResponse) {
+        _retrofit.create(Reddits.class).reddits(searchTerm).enqueue(new Callback<SubRedditResponse>() {
 
             @Override
             public void onResponse(Call<SubRedditResponse> call, Response<SubRedditResponse> response) {
@@ -98,7 +99,7 @@ public class RedditClient {
 
     // end points
     public interface Reddits {
-        @GET("reddits.json?limit=30")
-        Call<SubRedditResponse> reddits();
+        @GET("subreddits/search.json?limit=100")
+        Call<SubRedditResponse> reddits(@Query("q") String q);
     }
 }
